@@ -9,3 +9,9 @@ export interface User {
   role?: string;
   avatarUrl?: string;
 }
+
+export interface Category {
+  categoryId?: string;
+  categoryName?: string;
+  description?: string;
+}

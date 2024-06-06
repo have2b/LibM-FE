@@ -13,12 +13,13 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import { useAuth } from "@/hooks";
+import { useAuth, useCategories } from "@/hooks";
 import { User } from "@/models";
 import { Button } from "../ui/button";
 
 export const Header = () => {
   const { user } = useAuth();
+
   return (
     <header className="flex w-full items-center justify-between p-3 shadow-xl">
       {/* Logo */}
@@ -53,6 +54,9 @@ export const Header = () => {
 };
 
 const NavMenu = () => {
+  const { categories, loading, error } = useCategories();
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error while fetching</div>;
   return (
     <NavigationMenu>
       <NavigationMenuList>
@@ -65,7 +69,15 @@ const NavMenu = () => {
           <NavigationMenuTrigger>Category</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[400px] gap-3 p-4 md:w-[200px] md:grid-cols-2 lg:w-[300px]">
-              <li>item</li>
+              {categories?.map((category) => (
+                <NavigationMenuLink
+                  key={category.categoryId}
+                  href={`/books/${category.categoryName}`}
+                  className={navigationMenuTriggerStyle()}
+                >
+                  {category.categoryName}
+                </NavigationMenuLink>
+              ))}
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
