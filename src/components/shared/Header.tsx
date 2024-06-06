@@ -86,13 +86,13 @@ const UserDropdown = (prop: { user: User }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="outline-none">
-        <div className="me-6 flex h-12 w-12 items-center justify-center gap-3">
+        <div className="me-4 flex items-center justify-center gap-3">
           <img
             src={`/user/${prop.user.avatarUrl}`}
             alt="avatar"
-            className="rounded-full"
+            className="h-12 w-12 rounded-full object-cover"
           />
-          <span className="me-6 font-semibold">{prop.user.fullName}</span>
+          <span className="font-semibold">{prop.user.fullName}</span>
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="me-2">

@@ -11,11 +11,15 @@ import { Input } from "@/components/ui/input";
 import { useAuth } from "@/hooks";
 import { loginSchema } from "@/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { z } from "zod";
 
 export const Login = () => {
+  useEffect(() => {
+    document.title = "LibM - Login";
+  }, []);
   const { login } = useAuth();
   // Define form
   const form = useForm<z.infer<typeof loginSchema>>({

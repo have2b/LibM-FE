@@ -1,3 +1,4 @@
+import axiosInstace from "@/api/axiosInstance";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -10,11 +11,17 @@ import {
 import { Input } from "@/components/ui/input";
 import { registerSchema } from "@/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { z } from "zod";
 
 export const Register = () => {
+  useEffect(() => {
+    document.title = "LibM - Register";
+  }, []);
   // Define form
   const form = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
@@ -30,7 +37,16 @@ export const Register = () => {
 
   // Define submit handler
   function onSubmit(values: z.infer<typeof registerSchema>) {
-    console.log(values);
+    axiosInstace
+      .post("auth/register", values)
+      .then((res) => {
+        res.data
+          ? toast.success("Register success")
+          : toast.error("Register failed");
+      })
+      .catch((err) => {
+        toast.error(err);
+      });
   }
 
   return (

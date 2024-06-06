@@ -8,6 +8,8 @@ import React, {
   useMemo,
   useState,
 } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export interface AuthContextProps {
   user: User | null;
@@ -50,6 +52,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     axiosInstace.post("auth/login", { username, password }).then((res) => {
       setToken(res.data.token);
       localStorage.setItem("token", res.data.token);
+      toast.success("Login successful");
       axiosInstace
         .get("users/profile", {
           headers: { Authorization: `Bearer ${res.data.token}` },
