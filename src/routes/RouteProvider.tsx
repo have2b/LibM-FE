@@ -1,4 +1,4 @@
-import { Home } from "@/pages";
+import { Home, Login } from "@/pages";
 import React from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 
@@ -7,6 +7,7 @@ export const RouteProvider: React.FC = () => {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/auth/login" element={<Login />} />
       </Routes>
     </Router>
   );

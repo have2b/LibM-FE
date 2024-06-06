@@ -1,4 +1,10 @@
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
   NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
@@ -7,9 +13,12 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+import { useAuth } from "@/hooks";
+import { User } from "@/models";
 import { Button } from "../ui/button";
 
 export const Header = () => {
+  const { user } = useAuth();
   return (
     <header className="flex w-full items-center justify-between p-3 shadow-xl">
       {/* Logo */}
@@ -26,8 +35,16 @@ export const Header = () => {
       <NavMenu />
       {/* Auth */}
       <div className="flex items-center justify-center gap-3">
-        <Button>Login</Button>
-        <Button>Register</Button>
+        {user ? (
+          <UserDropdown user={user} />
+        ) : (
+          <>
+            <Button onClick={() => (window.location.href = "/auth/login")}>
+              Login
+            </Button>
+            <Button>Register</Button>
+          </>
+        )}
       </div>
     </header>
   );
@@ -60,5 +77,35 @@ const NavMenu = () => {
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
+  );
+};
+
+const UserDropdown = (prop: { user: User }) => {
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger className="outline-none">
+        <div className="me-6 flex h-12 w-12 items-center justify-center gap-3">
+          <img
+            src={`/user/${prop.user.avatarUrl}`}
+            alt="avatar"
+            className="rounded-full"
+          />
+          <span className="me-6 font-semibold">{prop.user.fullName}</span>
+        </div>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="me-2">
+        <DropdownMenuItem>Profile</DropdownMenuItem>
+        <DropdownMenuItem>Request</DropdownMenuItem>
+        <DropdownMenuItem
+          className="hover:cursor-pointer"
+          onClick={() => {
+            localStorage.removeItem("token");
+            window.location.reload();
+          }}
+        >
+          <span className="font-bold text-red-500">Logout</span>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };
