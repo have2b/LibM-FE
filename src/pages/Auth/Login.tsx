@@ -32,7 +32,6 @@ export const Login = () => {
 
   // Define submit handler
   function onSubmit(values: z.infer<typeof loginSchema>) {
-    console.log(values);
     login(values.username, values.password);
   }
 

@@ -109,7 +109,11 @@ const UserDropdown = (prop: { user: User }) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="me-2">
         <DropdownMenuItem>Profile</DropdownMenuItem>
-        <DropdownMenuItem>Request</DropdownMenuItem>
+        {prop.user.role === 0 ? (
+          <DropdownMenuItem>Panel</DropdownMenuItem>
+        ) : (
+          <DropdownMenuItem>Request</DropdownMenuItem>
+        )}
         <DropdownMenuItem
           className="hover:cursor-pointer"
           onClick={() => {
