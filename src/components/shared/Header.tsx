@@ -42,7 +42,9 @@ export const Header = () => {
             <Button onClick={() => (window.location.href = "/auth/login")}>
               Login
             </Button>
-            <Button>Register</Button>
+            <Button onClick={() => (window.location.href = "/auth/register")}>
+              Register
+            </Button>
           </>
         )}
       </div>

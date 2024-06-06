@@ -8,28 +8,29 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useAuth } from "@/hooks";
-import { loginSchema } from "@/validations";
+import { registerSchema } from "@/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { z } from "zod";
 
-export const Login = () => {
-  const { login } = useAuth();
+export const Register = () => {
   // Define form
-  const form = useForm<z.infer<typeof loginSchema>>({
-    resolver: zodResolver(loginSchema),
+  const form = useForm<z.infer<typeof registerSchema>>({
+    resolver: zodResolver(registerSchema),
     defaultValues: {
       username: "",
       password: "",
+      fullName: "",
+      email: "",
+      phone: "",
+      address: "",
     },
   });
 
   // Define submit handler
-  function onSubmit(values: z.infer<typeof loginSchema>) {
+  function onSubmit(values: z.infer<typeof registerSchema>) {
     console.log(values);
-    login(values.username, values.password);
   }
 
   return (
@@ -39,7 +40,7 @@ export const Login = () => {
           onSubmit={form.handleSubmit(onSubmit)}
           className="w-1/4 space-y-5 rounded-lg border-zinc-500 bg-white p-6"
         >
-          <h1 className="text-center text-3xl font-bold uppercase">Login</h1>
+          <h1 className="text-center text-3xl font-bold uppercase">Register</h1>
           <FormField
             control={form.control}
             name="username"
@@ -70,17 +71,69 @@ export const Login = () => {
               </FormItem>
             )}
           />
+          <FormField
+            control={form.control}
+            name="fullName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Fullname</FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter your name" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter your email" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="phone"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Phone</FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter your phone" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="address"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Address</FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter your address" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <div className="flex flex-col justify-between gap-2">
-            <Button type="submit">Login</Button>
+            <Button type="submit">Register</Button>
             <div className="flex items-center justify-between">
               <Link to="/" className="text-sm text-blue-500 underline">
                 <span>Back to home page</span>
               </Link>
               <Link
-                to="/auth/register"
+                to="/auth/login"
                 className="text-sm text-blue-500 underline"
               >
-                <span>Don't have an account?</span>
+                <span>Already has an account?</span>
               </Link>
             </div>
           </div>
