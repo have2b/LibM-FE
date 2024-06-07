@@ -187,9 +187,6 @@ const BookList = (prop: { books: Book[] | null }) => {
             <CardContent>
               <img src="/book/default_book.png" alt="book-img" />
             </CardContent>
-            {/* <CardFooter className="justify-center truncate">
-              <p>{book.publisher}</p>
-            </CardFooter> */}
           </Card>
         </div>
       ))}

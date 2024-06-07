@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import { useAuth, useCategories } from "@/hooks";
 import { User } from "@/models";
+import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
 
 export const Header = () => {
@@ -110,7 +111,9 @@ const UserDropdown = (prop: { user: User }) => {
       <DropdownMenuContent className="me-2">
         <DropdownMenuItem>Profile</DropdownMenuItem>
         {prop.user.role === 0 ? (
-          <DropdownMenuItem>Panel</DropdownMenuItem>
+          <DropdownMenuItem>
+            <Link to={"/admin/panel"}>Panel</Link>
+          </DropdownMenuItem>
         ) : (
           <DropdownMenuItem>Request</DropdownMenuItem>
         )}
